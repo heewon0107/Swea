@@ -11,7 +11,7 @@ from copy import deepcopy
 di = [1, 0, 0]
 dj = [0, 1, -1]
 d = [0, 1, 2]   # 방향
-r, c = 0, 0     # 처음 자리
+
 
 for tc in range(1, 11):
     icu = int(input())
@@ -36,10 +36,5 @@ for tc in range(1, 11):
                 break
     print(f"#{tc} {solving}")
     # print(new_ladder[0][57 : 68])
-
-# 내려가는 경우의 수
-# 1. 옆의 숫자보다 클 때
-# 2. 옆의 숫자가 0일 때
-# 3.
 
 
