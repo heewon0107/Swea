@@ -6,8 +6,8 @@ test_case = int(input())
 
 def search_page(total, target_page):
     start = 1
-    end = total
-    count = 0
+    end = total    #  총 페이지를 끝 페이지로 할당
+    count = 0      # 페이지를 반으로 쪼갠 횟수
     while start < end:
         mid = (start + end) // 2
         if target_page == mid:  # 고른 쪽이 target
