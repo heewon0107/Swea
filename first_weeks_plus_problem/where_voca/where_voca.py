@@ -8,12 +8,22 @@ for tc in range(1, test_case + 1):
     n, k = map(int, input().split())
     puzzle_arr = [list(map(int, input().split())) for _ in range(n)]
     result = 0
-    # 행에 있는 단어 찾기
+    column_count = 0
+    row_count = 0
     for i in range(n):
-        for j in range(n - k):  # 갈수있는 j의 범위
-            total = 0
-            for t in range(k):  # 움직일 수 있는 범위
-                total += puzzle_arr[i][j + t]
-            if total == k:
-                result += 1
+        for j in range(n):
+            if puzzle_arr[i][j] == 1:   # 가로 탐색
+                row_count += 1
+            if puzzle_arr[i][j] == 0 or j == n - 1:
+                if row_count == k:
+                    result += 1
+                row_count = 0
+
+            if puzzle_arr[j][i] == 1:   #세로 탐색
+                column_count += 1
+            if puzzle_arr[j][i] == 0 or j == n - 1:
+                if column_count == k:
+                    result += 1
+                column_count = 0
+
     print(f"#{tc} {result}")
