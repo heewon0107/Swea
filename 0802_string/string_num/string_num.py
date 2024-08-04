@@ -14,6 +14,6 @@ for tc in range(1, test_case+1):
         if itm in counting_dict:
             counting_dict[itm] += 1
             if counting_dict[itm] > max_value:
-                max_value = counting_dict[itm]  
+                max_value = counting_dict[itm]
 
     print(f"#{tc} {max_value}")
