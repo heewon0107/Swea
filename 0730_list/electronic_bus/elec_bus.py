@@ -15,14 +15,16 @@ for tc in range(1, test_case+1):
             car_position = n   # 도착
 
         else:
+
             for j in range(charge_amount, 0, -1):    # 배터리 용량 내에서 충전소 찾기
+                charge_amount -= 1
 
                 if (car_position + j) in charge_list:   # 충전소 뒤에서부터 찾기
                     car_position += j   # 충전소까지 주행
                     charge_time += 1    # 충전 횟수 +1
+                    charge_amount = k   # 풀충전
                     break
-                if j == 1:
-                    charge_time == 0
-                    car_position = n
-                    break
+                elif charge_amount == 0:    # 배터리 = 0
+                    car_position = n        # 종료 조건 설정
+                    charge_time = 0         # 충전 횟수 0 설정
     print(f"#{tc} {charge_time}")
