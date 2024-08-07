@@ -49,48 +49,48 @@ sys.stdin = open("input.txt", "r")
 #             break
 #
 #
-# test_case = 1
-# for tc in range(1, test_case +1):
-#     shop, V = map(int,input().split()) # s = 날리기, 간선 개수
-#     arr = list(map(int, input().split()))
-#     adj_list = [[] for _ in range(100)]
-#     for i in range(0, V*2, 2):
-#         v1, v2 = arr[i], arr[i+1]
-#         adj_list[v1].append(v2)
-
-    # 탐색 시작
-
-# dfs_m(0, V)
-
-###########################
 test_case = 1
 for tc in range(1, test_case +1):
-
-    dfs_dict = {}
     shop, V = map(int,input().split()) # s = 날리기, 간선 개수
     arr = list(map(int, input().split()))
     adj_list = [[] for _ in range(100)]
     for i in range(0, V*2, 2):
         v1, v2 = arr[i], arr[i+1]
-        if v1 in dfs_dict:
-            dfs_dict[v1].append(v2)
-        else:
-            dfs_dict[v1] = [v2]
+        adj_list[v1].append(v2)
 
-    print(dfs_dict)
-    # for i in range(100): # 100 번 까지의 길을 탐색한다.
-        x = 0   # 순회할 변수 할당.
-        position = 0
-        stack = []
-        while dfs_dict[x] != 99:    # 길을 찾으면 중단
-            v_len = len(dfs_dict[x])
-            if v_len > 0 :  # 딕셔너리의 밸류 값이 있다면
-                for i in range(v_len):
-                    position = dfs_dict[x][i]    # 포지션을 변경해준다.
-                    stack.append(x)
-                    if len(dfs_dict[position]) > 0: # 새로운 길이 있으면
-                        x = position    # x에 포지션 할당.
-                        break
-                    else: # 길이 없으면
-                        x = stack.pop()
+    # 탐색 시작
+
+# dfs_m(0, V)
+
+# ###########################
+# test_case = 1
+# for tc in range(1, test_case +1):
+#
+#     dfs_dict = {}
+#     shop, V = map(int,input().split()) # s = 날리기, 간선 개수
+#     arr = list(map(int, input().split()))
+#     adj_list = [[] for _ in range(100)]
+#     for i in range(0, V*2, 2):
+#         v1, v2 = arr[i], arr[i+1]
+#         if v1 in dfs_dict:
+#             dfs_dict[v1].append(v2)
+#         else:
+#             dfs_dict[v1] = [v2]
+#
+#     print(dfs_dict)
+#     # for i in range(100): # 100 번 까지의 길을 탐색한다.
+#         x = 0   # 순회할 변수 할당.
+#         position = 0
+#         stack = []
+#         while dfs_dict[x] != 99:    # 길을 찾으면 중단
+#             v_len = len(dfs_dict[x])
+#             if v_len > 0 :  # 딕셔너리의 밸류 값이 있다면
+#                 for i in range(v_len):
+#                     position = dfs_dict[x][i]    # 포지션을 변경해준다.
+#                     stack.append(x)
+#                     if len(dfs_dict[position]) > 0: # 새로운 길이 있으면
+#                         x = position    # x에 포지션 할당.
+#                         break
+#                     else: # 길이 없으면
+#                         x = stack.pop()
 
