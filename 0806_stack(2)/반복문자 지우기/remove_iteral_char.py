@@ -1,19 +1,18 @@
 import sys
+
 sys.stdin = open("sample_input.txt", "r")
 
 test = int(input())
-for tc in range(1,test+1):
-    s = input() # s = 문자열
+for tc in range(1, test + 1):
+    s = input()     # s = 문자열
+    count = 0       # len 안 쓰고 길이 세기
+    stack = []      # 스택 생성
+    for i in s:
+        if stack and stack[-1] == i:  #  스택의 마지막이 겹친다면.
+            stack.pop()     # 겹친것을 지워준다.
+        else:
+            stack.append(i) # 겹친 것이 없으면 넣어주기.
 
-    tl = len(s) # s의 텍스트 길이
-
-    ti = 0  # s의 텍스트 순회 인덱스
-    pi = 0  # 패턴을 찾기 위한 전 문자
-
-    while ti < tl: # 패턴을 찾으면 패턴 삭제 후 종료
-        pi = s[ti]  # ti번째의 문자.
-
-        if pi == pi[ti-1]:  # 문자열이 반복되면.
-            # s[ti], s[ti-1] 를 삭제하고싶은데.
-
-        ti += 1
+    for _ in stack:         # 스택 길이 만큼 카운트 +1
+        count += 1
+    print(f"#{tc} {count}")
