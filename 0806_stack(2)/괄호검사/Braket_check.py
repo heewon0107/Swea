@@ -8,6 +8,6 @@ for tc in range(1, test+1):
     stack = []
 
     for tar in target:  # 타겟 순회
-        if tar is 
+        if tar is
 
 # (
