@@ -11,7 +11,7 @@ for tc in range(1, T + 1):
 
     if N > M:
         K = N-M
-        for i in range(K):
+        for i in range(K+1):
             current = 0
             for j in range(M):
                 if i+j < N and j < M:
@@ -20,7 +20,7 @@ for tc in range(1, T + 1):
                 max_sum = current
     else:
         K = M - N
-        for i in range(K):
+        for i in range(K+1):
             current = 0
             for j in range(N):
                 if i + j < M and j < N:
