@@ -20,31 +20,7 @@ def bfs(s, g, adj_l):
                 q.append(w)
                 visited[w] = visited[t] + 1
             if w == G:
-                return visited[w]
-                from collections import deque
-
-
-sys.stdin = open("sample_input.txt", "r")
-
-
-def bfs(s, g, adj_l):
-    # 방문기록
-    visited = [0] * (V + 1)
-    visited[s] = 1
-    # 큐 생성
-    q = deque()
-    q.append(s)
-    # 거리
-    while q:
-        t = q.popleft()
-        for w in adj_l[t]:
-            if visited[w] == 0:
-                q.append(w)
-                visited[w] = visited[t] + 1
-            if w == G:
                 return visited[w] - 1
-    return 0
-
 
 T = int(input())
 for tc in range(1, T + 1):
