@@ -8,22 +8,24 @@ for tc in range(1, T + 1):
     place = [list(map(int, input().split())) for _ in range(N)]
 
     max_len = 0
-
     for i in range(N):
         current_r = 0
-        current_c = 0
         for j in range(M):
-            if place[i][j] == 1:    # 가로 확인
+            if place[i][j] == 1:  # 가로 확인
                 current_r += 1
-                if current_r > max_len:
-                    max_len = current_r
             else:
+                max_len = max(max_len, current_r)
                 current_r = 0
+        max_len = max(max_len, current_r)
 
-            if place[j][i] == 1:    # 세로 확인
+    for j in range(M):
+        current_c = 0
+        for i in range(N):
+            if place[i][j] == 1:  # 세로 확인
                 current_c += 1
-                if current_c > max_len:
-                    max_len = current_c
             else:
+                max_len = max(max_len, current_c)
                 current_c = 0
+        max_len = max(max_len, current_c)
+
     print(f"#{tc} {max_len}")
