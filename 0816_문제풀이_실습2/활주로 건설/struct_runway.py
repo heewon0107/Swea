@@ -2,33 +2,59 @@ import sys
 
 sys.stdin = open("sample_input.txt", "r")
 
+
+def check_i(idx):  # 인덱스 범위 안에서 탐색한다.   0~N-1
+    for k in range(1, N):
+        # 왼쪽이 클 경우 = 오른쪽에 경사로를 놓아야함
+        if arr[idx][k - 1] > arr[idx][k]:
+            for stack in range(X):  # 경사로 배치할 구간 탐색
+                if not k + stack < N:  # 인덱스 범위 벗어나면 리턴
+                    return False
+                if arr[idx][k - 1] - 1 != arr[idx][k + stack]:  # 경사로 길이 만큼 같아야 함.
+                    return False
+        # 오른쪽이 클 경우 = 왼쪽에 경사로를 놓아야 함.
+        elif arr[idx][k - 1] < arr[idx][k]:
+            for stack in range(X):
+                if not 0 <= k - 1 - stack:
+                    return False
+                if arr[idx][k - 1 - stack] != arr[idx][k] - 1:
+                    return False
+
+    return True
+
+
+def check_j(jdx):  # 인덱스 범위 안에서 탐색한다.  위아래 탐색
+    construct = [0] * N
+    for k in range(1, N):
+        # 위에가 더 클 경우 = 아래에 경사로를 놓아야함
+        if arr[k - 1][jdx] > arr[k][jdx]:
+            for stack in range(X):  # 경사로 배치할 구간 탐색
+                if not k + stack < N:  # 인덱스 범위 벗어나면 리턴
+                    return False
+                if arr[k - 1][jdx] - 1 != arr[k + stack][jdx]:  # 경사로 길이 만큼 같아야 함.
+                    return False
+                if not construct[k + stack]:
+                    return False
+                construct[k + stack] = 1
+        # 아래가 더 클 경우 = 위에 경사로를 배치해야함
+        elif arr[k][jdx] > arr[k - 1][jdx]:
+            for stack in range(X):  # 경사로 배치할 구간 탐색
+                if not 0 <= k - 1 - stack:  # 인덱스 범위 벗어나면 리턴
+                    return False
+                if arr[k][jdx] - 1 != arr[k - 1 - stack][jdx]:  # 경사로 길이 만큼 같아야 함.
+                    return False
+
+    return True
+
 T = int(input())
-
-
-def runway(land, leng):
-    count = 0
-    for i in range(N):
-        for j in range(N):
-            for d in range(4):
-                ni = i + di[d]
-                nj = j + dj[d]
-                for k in range(leng):
-                    while 0 <= ni < N and 0 <= nj < 0 and land[i][j] == land[ni][nj]:   # 값이 변할 때까지 간다.
-                        ni += di[d]
-                        nj += dj[d]
-                    # 새로운 값을 만남
-                    if land[i][j] - 1 == land[ni][nj]:  # 높이 차이가 1이다.
-                        for _ in range(1, k):
-                            if 0 <= ni < N and 0 <= nj < 0
-
-
-#   우측, 아래 탐색
-di = [0, 1]
-dj = [1, 0]
-
 for tc in range(1, T + 1):
     N, X = map(int, input().split())  # N = 크기, X = 경사로의 길이
     arr = [list(map(int, input().split())) for _ in range(N)]
-    # 델타 확인 높거나 낮을 때까지 쭈욱 간다
-    # 높으면 전에 경사로 길이만큼 +1해준뒤 경사로 전 값들이 -1이면 count +1
-    # 낮으면 경사로 길이만큼 + 해준뒤 후 값이 -1 이면 +1
+    count = 0
+    for x in range(N):
+        if check_i(x):
+            count += 1
+        if check_j(x):
+            count += 1
+
+    print(f"#{tc} {count}")
