@@ -1,33 +1,36 @@
 import sys
 sys.stdin = open("sample_input(1) (1).txt", "r")
 
+def search(n, idx, s, selected):
+    global min_sum
+
+    if s > min_sum: # 합이 최소값보다 크면 가지치기
+        return
+
+    if idx == n:    # 범위를 벗어났고
+        if min_sum > s:
+            min_sum = s
+            return
+
+    for i in range(n):
+        if not selected[i]:
+            selected[i] = 1     # i 열 선택 체크
+            s += arr[idx][i]    # 합에 더해주고
+
+            search(n, idx+1, s, selected)   # 다음 행 찾아가기
+
+            selected[i] = 0 # 다음 i 도 봐야하니 다시 초기화
+            s -= arr[idx][i]
+
 T = int(input())
-# idx : idx 번째 행에서 하나씩 돌아야 함
-def min_sum(idx, checked_i, checked_j, N):
-    result = []     # 합의 최대 값
-    if idx == N:
-        return
-    if checked_i[idx] == 1:    # idx 열에 숫자가 있으면
-        return
-    # if len(result) == 3:
-    #     result.append(sum(lst))
 
-    for j in range(N):
-        if not checked_j[j]:   # check 를 안했으면
-            lst.append(arr[idx][j])
-            result += arr[idx][j]
-            checked_j[j] = 1
-            min_sum(idx + 1, checked_i, checked_j, N)
-
-
-        print(lst)
-        print(checked_j)
-    # return min(result)
-    # idx + 1 행으로 가서 가장 작은 숫자를 고른다. checked[idx][j] = 1
-for tc in range(1, 2):
+for tc in range(1, T+1):
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
-    checked_i = [0] * N
-    checked_j = [0] * N
-    lst = []
-min_sum(0, checked_i, checked_j, N)
+
+    min_sum = N * 9  # 최대값 27
+    i_check = 0
+
+    search(N, 0, 0, [0]*N)
+
+    print(f"#{tc} {min_sum}")
