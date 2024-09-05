@@ -3,16 +3,16 @@ import sys
 sys.stdin = open("sample_input.txt", "r")
 
 
-def subset(n, k):
+def subset(idx, total):
     global result
-    for i in range(0, 1 << n):
-        sub = []
-        for j in range(n):
-            if i & (1 << j):
-                sub.append(arr[j])
-
-        if sum(sub) == k:
+    if total > K:
+        return
+    if idx == N:
+        if total == K:
             result += 1
+        return
+    subset(idx + 1, total + arr[idx])
+    subset(idx + 1, total)
 
 
 T = int(input())
@@ -20,5 +20,5 @@ for tc in range(1, T + 1):
     N, K = map(int, input().split())
     arr = list(map(int, input().split()))
     result = 0
-    subset(N, K)
+    subset(0, 0)
     print(f"#{tc} {result}")
