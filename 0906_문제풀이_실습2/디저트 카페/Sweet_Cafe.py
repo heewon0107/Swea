@@ -10,6 +10,7 @@ sys.stdin = open("sample_input.txt", "r")
 delta = [[1, 1], [1, -1], [-1, -1], [-1, 1]]
 def naym(idx, jdx, cnt, start):
     global result
+    global jj
     if start == 1 and start_point[0] == idx and start_point[1] == jdx:
         if cnt > result and cnt > 3:
             result = cnt
@@ -20,13 +21,13 @@ def naym(idx, jdx, cnt, start):
     for di, dj in delta:
         ni = idx + di
         nj = jdx + dj
+
         if 0 <= ni < N and 0 <= nj < N and not visited[ni][nj] and cafe[ni][nj] not in ate_sweet:
             visited[ni][nj] = 1
             ate_sweet.append(cafe[ni][nj])
             naym(ni, nj, cnt + 1, start)
             ate_sweet.pop()
             visited[ni][nj] = 0
-
 T = int(input())
 for tc in range(1, T + 1):
     N = int(input())
@@ -46,4 +47,4 @@ for tc in range(1, T + 1):
             naym(i, j, 0, 0)
     if result < 4:
         result = -1
-    print(result)
+    print(f"#{tc} {result}")
