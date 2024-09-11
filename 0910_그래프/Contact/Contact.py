@@ -1,39 +1,38 @@
 import sys
+from collections import deque
 
 sys.stdin = open("input.txt", "r")
-
-
-def dfs(node, cnt):
-    global max_cnt, result
-
-    visited[node] = 1
-    # 갈 데가 없다.
-    if not adj_lst[node]:
-        # 여기가 마지막인가?
-        if cnt > max_cnt:
-            max_cnt = cnt
-            result = node
-        elif cnt == max_cnt:
-            # 마지막이고 결과 값이 큰거 출력
-            if result < node:
-                result = node
-        return
-
-    # 다음 연락망이 있다.
-    for i in adj_lst[node]:
-        if visited[i]: continue
-        dfs(i, cnt + 1)
-
 
 for tc in range(1, 11):
     n, start = map(int, input().split())
     arr = list(map(int, input().split()))
-    adj_lst = [[] for _ in range(101)]
-    for i in range(0, n, 2):
-        adj_lst[arr[i]].append(arr[i + 1])
-    max_cnt = 0
-    result = 0
+    adj_list = [[] for _ in range(101)]
     visited = [0] * 101
+    for i in range(0, n, 2):
+        s = arr[i]
+        e = arr[i + 1]
+        adj_list[s].append(e)
 
-    dfs(start, 0)
-    print(f"#{tc} {result}")
+    visited[start] = -1
+    q = deque()
+    q.append((adj_list[start], 1))
+
+    while q:
+        v, cnt = q.popleft()
+        if type(v) == int:
+            if not visited[v]:
+                visited[v] = cnt
+                q.append((v, cnt + 1))
+        else:
+            for next in v:
+                if visited[next]:
+                    continue
+                visited[next] = cnt
+                if adj_list[next]:
+                    q.append((adj_list[next], cnt + 1))
+
+    result = max(visited)
+    for i in range(100, -1, -1):
+        if visited[i] == result:
+            print(f"#{tc} {i}")
+            break
